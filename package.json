@@ -10,19 +10,24 @@
   },
   "devDependencies": {
     "@adonisjs/assembler": "^5.0.0",
+    "@types/supertest": "^2.0.11",
     "adonis-preset-ts": "^2.1.0",
     "execa": "^5.1.1",
     "get-port": "5.1.1",
     "japa": "^4.0.0",
     "pino-pretty": "^7.1.0",
     "sqlite3": "^5.0.2",
+    "supertest": "^6.1.6",
     "typescript": "~4.2",
     "youch": "^2.2.2",
     "youch-terminal": "^1.1.1"
   },
   "dependencies": {
     "@adonisjs/core": "^5.3.0",
+    "@adonisjs/lucid": "^16.2.2",
     "@adonisjs/repl": "^3.1.0",
+    "luxon": "^2.0.2",
+    "phc-argon2": "^1.1.2",
     "proxy-addr": "^2.0.7",
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.20"
