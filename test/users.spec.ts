@@ -101,4 +101,23 @@ test.group('Users', group => {
     assert.equal(body.code, 'BAD_REQUEST')
     assert.equal(body.status, 422)
   })
+
+  test('it should update an user', async assert => {
+    const { id, password } = await UserFactory.create()
+    const email = 'test@test.com'
+    const avatar = 'https://github.com/diegogit03'
+
+    const { body } = await supertest(BASE_URL)
+      .put('/users/' + id)
+      .send({
+        email,
+        avatar,
+        password
+      })
+      .expect(200)
+
+    assert.equal(body.id, id)
+    assert.equal(body.email, email)
+    assert.equal(body.avatar, avatar)
+  })
 })

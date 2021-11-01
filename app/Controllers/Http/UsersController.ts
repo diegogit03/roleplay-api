@@ -23,4 +23,14 @@ export default class UsersController {
     return response.created(user)
   }
 
+  public async update ({ params: { id }, request, response }: HttpContextContract) {
+    const userPayload = request.only(['email', 'avatar', 'password'])
+    const user = await User.findOrFail(id)
+
+    user.merge(userPayload)
+    await user.save()
+
+    return response.ok(user)
+  }
+
 }
