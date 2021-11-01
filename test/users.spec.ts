@@ -18,8 +18,7 @@ test.group('Users', group => {
 		const userPayload = {
 			email: 'test@test.com',
 			username: 'test',
-			password: 'test',
-      avatar: 'https://picsum.photos/200'
+			password: 'test'
 		}
 
 		const { body } = await supertest(BASE_URL)
@@ -30,7 +29,6 @@ test.group('Users', group => {
     assert.exists(body.id, 'Id undefined')
     assert.equal(body.email, userPayload.email)
     assert.equal(body.username, userPayload.username)
-    assert.equal(body.avatar, userPayload.avatar)
     assert.notExists(body.password, 'Password defined')
 	})
 
@@ -64,5 +62,43 @@ test.group('Users', group => {
     assert.include(body.message, 'username')
     assert.equal(body.code, 'BAD_REQUEST')
     assert.equal(body.status, 409)
+  })
+
+  test('it should return 422 when required data is not provided', async assert => {
+    const { body } = await supertest(BASE_URL)
+      .post('/users')
+      .send({})
+      .expect(422)
+
+    assert.equal(body.code, 'BAD_REQUEST')
+    assert.equal(body.status, 422)
+  })
+
+  test('it should return 422 when providing an invalid email', async assert => {
+    const { body } = await supertest(BASE_URL)
+      .post('/users')
+      .send({
+        email: 'test@',
+        username: 'test',
+        password: 'test'
+      })
+      .expect(422)
+
+    assert.equal(body.code, 'BAD_REQUEST')
+    assert.equal(body.status, 422)
+  })
+
+  test('it should return 422 when providing an invalid password', async assert => {
+    const { body } = await supertest(BASE_URL)
+      .post('/users')
+      .send({
+        email: 'test@test.com',
+        username: 'test',
+        password: 'tes'
+      })
+      .expect(422)
+
+    assert.equal(body.code, 'BAD_REQUEST')
+    assert.equal(body.status, 422)
   })
 })
