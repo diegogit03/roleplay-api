@@ -10,6 +10,8 @@
   },
   "devDependencies": {
     "@adonisjs/assembler": "^5.8.0",
+    "@japa/preset-adonis": "^1.1.0",
+    "@japa/runner": "^2.0.9",
     "@types/supertest": "^2.0.11",
     "adonis-preset-ts": "^2.1.0",
     "execa": "^5.1.1",
