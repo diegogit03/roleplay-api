@@ -1,4 +1,6 @@
 import Factory from '@ioc:Adonis/Lucid/Factory'
+import Group from 'App/Models/Group'
+import GroupRequest from 'App/Models/GroupRequest'
 import User from 'App/Models/User'
 
 export const UserFactory = Factory.define(User, ({ faker }) => {
@@ -9,3 +11,16 @@ export const UserFactory = Factory.define(User, ({ faker }) => {
     avatar: faker.internet.url()
   }
 }).build()
+
+export const GroupFactory = Factory.define(Group, ({ faker }) => {
+  return {
+    name: faker.name.findName(),
+    description: faker.lorem.paragraph(),
+    schedule: faker.date.weekday(),
+    location: faker.internet.url(),
+    chronic: faker.lorem.sentence()
+  }
+})
+  .relation('masterUser', () => UserFactory)
+  .relation('players', () => UserFactory)
+  .build()

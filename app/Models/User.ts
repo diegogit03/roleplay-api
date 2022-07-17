@@ -1,7 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, beforeSave, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, beforeSave, hasMany, HasMany, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
 import Hash from '@ioc:Adonis/Core/Hash'
 import LinkToken from './LinkToken'
+import Group from './Group'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -29,6 +30,11 @@ export default class User extends BaseModel {
     foreignKey: 'userId'
   })
   public tokens: HasMany<typeof LinkToken>
+
+  @manyToMany(() => Group, {
+    pivotTable: 'groups_users'
+  })
+  public players: ManyToMany<typeof Group>
 
   @beforeSave()
   public static async hashPassword (user: User) {

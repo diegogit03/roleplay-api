@@ -6,6 +6,7 @@
  */
 
 import Bouncer from '@ioc:Adonis/Addons/Bouncer'
+import GroupRequest from 'App/Models/GroupRequest'
 import User from 'App/Models/User'
 
 /*
@@ -32,6 +33,8 @@ import User from 'App/Models/User'
 */
 export const { actions } = Bouncer.define('updateUser', (user: User, userForUpdate: User) => {
   return user.id === userForUpdate.id
+}).define('updateGroupRequestStatus', (user: User, groupRequest: GroupRequest) => {
+  return user.id === groupRequest.group.master
 })
 
 /*
